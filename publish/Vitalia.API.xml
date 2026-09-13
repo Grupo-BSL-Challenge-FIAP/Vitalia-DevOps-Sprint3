@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vitalia.API</name>
+    </assembly>
+    <members>
+        <member name="T:Vitalia.API.Controllers.CartController">
+            <summary>
+            Gerenciamento do carrinho de compras da Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.#ctor(Vitalia.Application.Interfaces.Services.ICartService,Microsoft.Extensions.Logging.ILogger{Vitalia.API.Controllers.CartController})">
+            <summary>
+            Gerenciamento do carrinho de compras da Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.GetCurrentUserCart">
+            <summary>
+            Busca o carrinho ativo de um usuário.
+            Caso não exista, um novo carrinho é criado.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.GetById(System.Int64)">
+            <summary>
+            Busca um carrinho pelo ID.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.AddItem(System.Int64,Vitalia.Application.DTOs.Cart.CartItemRequest)">
+            <summary>
+            Adiciona um produto ao carrinho.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.UpdateItem(System.Int64,System.Int64,System.Int32)">
+            <summary>
+            Atualiza a quantidade de um produto no carrinho.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CartController.RemoveItem(System.Int64,System.Int64)">
+            <summary>
+            Remove um produto do carrinho.
+            </summary>
+        </member>
+        <member name="T:Vitalia.API.Controllers.CategoryController">
+            <summary>
+            Gerencia as categorias de produtos da Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.#ctor(Vitalia.Application.Interfaces.Services.ICategoryService,Microsoft.Extensions.Logging.ILogger{Vitalia.API.Controllers.CategoryController})">
+            <summary>
+            Gerencia as categorias de produtos da Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.GetAll">
+            <summary>
+            Retorna todas as categorias cadastradas.
+            </summary>
+            <returns>Lista de categorias.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.GetById(System.Int64)">
+            <summary>
+            Retorna uma categoria pelo identificador.
+            </summary>
+            <param name="id">Identificador da categoria.</param>
+            <returns>Categoria encontrada.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.Create(Vitalia.Application.DTOs.Category.CategoryRequest)">
+            <summary>
+            Cadastra uma nova categoria.
+            </summary>
+            <param name="request">Dados da categoria.</param>
+            <returns>Categoria criada.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.Update(System.Int64,Vitalia.Application.DTOs.Category.CategoryRequest)">
+            <summary>
+            Atualiza uma categoria existente.
+            </summary>
+            <param name="id">Identificador da categoria.</param>
+            <param name="request">Novos dados da categoria.</param>
+        </member>
+        <member name="M:Vitalia.API.Controllers.CategoryController.Delete(System.Int64)">
+            <summary>
+            Exclui uma categoria.
+            </summary>
+            <param name="id">Identificador da categoria.</param>
+        </member>
+        <member name="T:Vitalia.API.Controllers.OrderController">
+            <summary>
+            Controller responsável pelo gerenciamento de pedidos.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.#ctor(Vitalia.Application.Interfaces.Services.IOrderService,Microsoft.Extensions.Logging.ILogger{Vitalia.API.Controllers.OrderController})">
+            <summary>
+            Controller responsável pelo gerenciamento de pedidos.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.GetById(System.Int64)">
+            <summary>
+            Busca um pedido pelo seu identificador.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Os dados do pedido encontrado.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.GetCurrentUserOrders">
+            <summary>
+            Busca todos os pedidos do usuário autenticado.
+            </summary>
+            <returns>Lista de pedidos pertencentes ao usuário autenticado.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Checkout(System.Int64)">
+            <summary>
+            Finaliza o carrinho e cria um novo pedido.
+            </summary>
+            <param name="cartId">
+            Identificador do carrinho que será finalizado.
+            </param>
+            <returns>O pedido criado a partir do carrinho.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Confirm(System.Int64)">
+            <summary>
+            Confirma um pedido que está aguardando confirmação.
+            Apenas administradores podem confirmar pedidos.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Retorna 204 quando o pedido é confirmado.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Process(System.Int64)">
+            <summary>
+            Inicia o processamento de um pedido confirmado.
+            Apenas administradores podem processar pedidos.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Retorna 204 quando o pedido é colocado em processamento.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Ship(System.Int64)">
+            <summary>
+            Marca um pedido em processamento como enviado.
+            Apenas administradores podem enviar pedidos.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Retorna 204 quando o pedido é enviado.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Deliver(System.Int64)">
+            <summary>
+            Marca um pedido enviado como entregue.
+            Apenas administradores podem entregar pedidos.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Retorna 204 quando o pedido é marcado como entregue.</returns>
+        </member>
+        <member name="M:Vitalia.API.Controllers.OrderController.Cancel(System.Int64)">
+            <summary>
+            Cancela um pedido pertencente ao usuário autenticado.
+            </summary>
+            <param name="id">Identificador do pedido.</param>
+            <returns>Retorna 204 quando o pedido é cancelado.</returns>
+        </member>
+        <member name="T:Vitalia.API.Controllers.ProductController">
+            <summary>
+            Produtos disponíveis para comercialização na Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.#ctor(Vitalia.Application.Interfaces.Services.IProductService,Microsoft.Extensions.Logging.ILogger{Vitalia.API.Controllers.ProductController})">
+            <summary>
+            Produtos disponíveis para comercialização na Vitalia.
+            </summary>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.GetAll">
+            <summary>
+            Lista todos os produtos.
+            </summary>
+            <response code="200">Produtos encontrados.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.GetPaged(System.Int32,System.Int32)">
+            <summary>
+            Retorna uma lista paginada de produtos.
+            </summary>
+            <param name="page">
+            Número da página que será retornada.
+            </param>
+            <param name="pageSize">
+            Quantidade de produtos por página.
+            </param>
+            <returns>
+            Lista paginada contendo os produtos e informações de paginação.
+            </returns>
+            <response code="200">
+            Produtos retornados com sucesso.
+            </response>
+            <response code="400">
+            A página ou o tamanho da página informado é inválido.
+            </response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.GetById(System.Int64)">
+            <summary>
+            Busca um produto pelo ID.
+            </summary>
+            <param name="id">Identificador do produto.</param>
+            <response code="200">Produto encontrado.</response>
+            <response code="404">Produto não encontrado.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.GetByCategory(System.Int64)">
+            <summary>
+            Lista os produtos de uma determinada categoria.
+            </summary>
+            <param name="categoryId">Identificador da categoria.</param>
+            <response code="200">Produtos encontrados.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.GetByStatus(Vitalia.Domain.Enums.ProductStatus)">
+            <summary>
+            Lista os produtos de acordo com o status.
+            </summary>
+            <param name="status">Status do produto.</param>
+            <response code="200">Produtos encontrados.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.Create(Vitalia.Application.DTOs.Product.ProductRequest)">
+            <summary>
+            Cadastra um novo produto.
+            </summary>
+            <param name="request">Dados do produto.</param>
+            <response code="201">Produto criado com sucesso.</response>
+            <response code="400">Dados inválidos.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.Update(System.Int64,Vitalia.Application.DTOs.Product.ProductRequest)">
+            <summary>
+            Atualiza um produto existente.
+            </summary>
+            <param name="id">Identificador do produto.</param>
+            <param name="request">Novos dados do produto.</param>
+            <response code="204">Produto atualizado com sucesso.</response>
+            <response code="400">Dados inválidos.</response>
+            <response code="404">Produto não encontrado.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Vitalia.API.Controllers.ProductController.Delete(System.Int64)">
+            <summary>
+            Exclui um produto.
+            </summary>
+            <param name="id">Identificador do produto.</param>
+            <response code="204">Produto excluído com sucesso.</response>
+            <response code="404">Produto não encontrado.</response>
+            <response code="500">Erro interno do servidor.</response>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type)">
+            <summary>
+            Generates a documentation comment ID for a type.
+            Example: T:Namespace.Outer+Inner`1 becomes T:Namespace.Outer.Inner`1
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.PropertyInfo)">
+            <summary>
+            Generates a documentation comment ID for a property.
+            Example: P:Namespace.ContainingType.PropertyName or for an indexer P:Namespace.ContainingType.Item(System.Int32)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Type,System.String)">
+            <summary>
+            Generates a documentation comment ID for a property given its container type and property name.
+            Example: P:Namespace.ContainingType.PropertyName
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.CreateDocumentationId(System.Reflection.MethodInfo)">
+            <summary>
+            Generates a documentation comment ID for a method (or constructor).
+            For example:
+              M:Namespace.ContainingType.MethodName(ParamType1,ParamType2)~ReturnType
+              M:Namespace.ContainingType.#ctor(ParamType)
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.GetTypeDocId(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Generates a documentation ID string for a type.
+            This method handles nested types (replacing '+' with '.'),
+            generic types, arrays, pointers, by-ref types, and generic parameters.
+            The <paramref name="includeGenericArguments"/> flag controls whether
+            constructed generic type arguments are emitted, while <paramref name="omitGenericArity"/>
+            controls whether the generic arity marker (e.g. "`1") is appended.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.OpenApi.Generated.DocumentationCommentIdHelper.NormalizeDocId(System.String)">
+            <summary>
+            Normalizes a documentation comment ID to match the compiler-style format.
+            Strips the return type suffix for ordinary methods but retains it for conversion operators.
+            </summary>
+            <param name="docId">The documentation comment ID to normalize.</param>
+            <returns>The normalized documentation comment ID.</returns>
+        </member>
+    </members>
+</doc>
