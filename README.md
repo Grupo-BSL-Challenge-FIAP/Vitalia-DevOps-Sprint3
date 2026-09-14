@@ -131,8 +131,39 @@ cd vitalia-dotnet-sprint3
 ```
  
 ---
+
+## 7. Criar as tabelas no banco de dados via Entity Framework Core Migrations
+
+Caso o banco Oracle ainda não possua as tabelas da aplicação, é possível criá-las automaticamente utilizando a migration inicial do projeto.
+
+Primeiro, configure as credenciais do banco Oracle no User Secrets:
+
+```powershell
+dotnet user-secrets init --project Vitalia.API/Vitalia.API.csproj
+
+dotnet user-secrets set `
+  "ConnectionStrings:OracleConnection" `
+  "User Id=<SEU_USUARIO_ORACLE>;Password=<SUA_SENHA_ORACLE>;Data Source=oracle.fiap.com.br:1521/ORCL;" `
+  --project Vitalia.API/Vitalia.API.csproj
+
+dotnet user-secrets set `
+  "JWT_SECRET" `
+  "<SEGREDO_DO_BACKEND_JAVA>" `
+  --project Vitalia.API/Vitalia.API.csproj
+```
+
+Depois, aplique as migrations ao banco:
+
+```powershell
+ddotnet ef database update `
+  --project Vitalia.Infrastructure/Vitalia.Infrastructure.csproj `
+  --startup-project Vitalia.API/Vitalia.API.csproj `
+  --context VitaliaDbContext
+```
+
+O comando aplica as migrations pendentes do Entity Framework Core ao banco Oracle, criando as tabelas, chaves, relacionamentos e demais estruturas definidas pela aplicação.
  
-## 7. Publicar a aplicação
+## 8. Publicar a aplicação
  
 ```powershell
 dotnet restore
@@ -143,7 +174,7 @@ dotnet publish Vitalia.API/Vitalia.API.csproj `
  
 ---
  
-## 8. Empacotar e enviar o deploy (ZIP deploy via CLI)
+## 9. Empacotar e enviar o deploy (ZIP deploy via CLI)
  
 ```powershell
 Compress-Archive -Path .\publish\* -DestinationPath .\deploy.zip -Force
@@ -159,7 +190,7 @@ O deploy é feito por ZIP gerado a partir do `dotnet publish`.
  
 ---
  
-## 9. Validar o deploy
+## 10. Validar o deploy
  
 ```powershell
 curl.exe https://vitalia-app.azurewebsites.net/health
@@ -196,7 +227,15 @@ Todos os recursos acima foram criados **exclusivamente via Azure CLI** (o Portal
  
 ---
 
+## 📁 Scripts e documentação
 
+Os scripts SQL utilizados na solução estão disponíveis na pasta [`docs/`](./docs/).
+
+- [`script_bd.sql`](./docs/script_bd.sql) — script SQL contendo a estrutura do banco de dados, incluindo tabelas, colunas, chaves primárias, chaves estrangeiras e demais constraints da solução.
+- [`vitalia-desenho-arquitetura.png`](./docs/vitalia-desenho-arquitetura.png) — desenho da arquitetura da solução, apresentando os componentes, recursos de Cloud, integrações e fluxo de comunicação.
+- [`vitalia-links-sprint3.pdf`](./docs/vitalia-links-sprint3.pdf) — documento com os links e informações dos inttegrantes do grupo.
+
+ ---
  
 ## 🌐 Ambiente publicado
  
@@ -213,4 +252,5 @@ Todos os recursos acima foram criados **exclusivamente via Azure CLI** (o Portal
 ```powershell
 az group delete --name rg-vitalia-challenge-2026 --yes --no-wait
 ```
-  
+
+---
